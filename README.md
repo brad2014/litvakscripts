@@ -1,8 +1,8 @@
 # LitvakScripts
 
-Python scripts I use for manipulating and analyzing data collected by the litvak.org team.
+Python scripts I use for manipulating and analyzing data collected by the LitvakSIG team.  
 
-Note: My scripts read data (e.g. spreadsheets) that are copyrighted by [LitvakSIG, Inc.](https://www.litvaksig.org) Accessing their data requires an account on their web site, and use of their data is subject to their terms of service and copyrights.  At the time of this writing, they have a web page that describes permitted uses [here](https://donors.litvaksig.org/site/suwalki/data-info).
+Note: My scripts read data (e.g. spreadsheets) that are developed, copyrighted and published by [LitvakSIG, Inc.](https://www.litvaksig.org) Accessing their data requires an account on their web site, and use of their data is subject to their terms of use.  To get access, [join LitvakSig!](https://www.litvaksig.org/membership-and-contributions/join-and-contribute/)
 
 ## Installation / Setup
 
