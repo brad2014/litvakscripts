@@ -8,8 +8,8 @@
 import argparse
 import pathlib
 import os
-import litvak
-from pprint import pprint
+from litvak.utils import info, fatal, login
+from litvak.download import getFileList, downloadXlsFile
 
 parser = argparse.ArgumentParser(
     description="Download a set of spreadsheets from Litvaksig.org"
@@ -17,17 +17,20 @@ parser = argparse.ArgumentParser(
 parser.add_argument(
     "-u",
     "--username",
-    help="Litvaksig.org account username. [Default: LITVAK_USERNAME environment variable]",
+    help="Litvaksig.org account username. "
+    "[Default: LITVAK_USERNAME environment variable]",
 )
 parser.add_argument(
     "-p",
     "--password",
-    help="Litvaksig.org account password. [Default: LITVAK_PASSWORD environment variable]",
+    help="Litvaksig.org account password. "
+    "[Default: LITVAK_PASSWORD environment variable]",
 )
 parser.add_argument(
     "-g",
     "--group",
-    help="The name of the group in a district you subscribe to. [Default: suwalki/sejny]",
+    help="The name of the group in a district you subscribe to. "
+    "[Default: suwalki/sejny]",
     default="suwalki/sejny",
 )
 parser.add_argument(
@@ -58,21 +61,23 @@ parser.add_argument(
     help="Files to download. If not specified, download all files in the group.",
 )
 options = parser.parse_args()
-pprint(options)
+
 options.username = options.username or os.getenv("LITVAK_USERNAME", default=None)
 options.password = options.password or os.getenv("LITVAK_PASSWORD", default=None)
 if not options.username or not options.password:
-    litvak.fatal("Account username and password are required.")
+    fatal("Account username and password are required.")
 
-litvak.login(options.username, options.password)
-fileList = litvak.getFileList(options.group)
+login(options.username, options.password)
+fileList = getFileList(options.group)
+
 if not options.files:
     options.files = fileList.keys()
+
 for f in options.files:
     if f not in fileList:
         info("File is not in group - Skipping: {}".format(f))
         continue
-    litvak.downloadXlsFile(
+    downloadXlsFile(
         options.outdir,
         options.group,
         fileList[f],

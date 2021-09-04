@@ -2,3 +2,6 @@
 .bashrc
 __pycache__
 output
+.virtualenv
+.tags
+.~*
