@@ -124,7 +124,7 @@ def normalizeName(gn, pn="", sn="", gender=None, dump=False):
             )
             gender = "M"  # later, fix the name list
         else:
-            return nameRaw, None  # nameList has nothing
+            return nameRaw, None  # nameList has nothing, or gender is ambiguous
 
         return (
             " ".join([nameMap[gender].get(name, name) for name in subNames]),
@@ -184,7 +184,7 @@ def normalizeName(gn, pn="", sn="", gender=None, dump=False):
     # Sometimes a name with patronym ends up in the father's given name field.
     # We can discard it, since buildFamily will find a home for it.
     # extractPatronym(gn, pn, gender)
-    pn, ppn, skip = extractPatronym(pn, "", "M")
+    pn, skip, skip = extractPatronym(pn, "", "M")  # not used: ppn
 
     pn, skip = mapRawName(pn, "M")
     sn, skip = mapRawName(sn, "S")
@@ -198,17 +198,6 @@ def normalizeName(gn, pn="", sn="", gender=None, dump=False):
             info("NAME:{}:{}".format("S", n))
 
     return (gn, pn, sn, gender)
-
-
-# formatted name is like: CHASHA LEAH bat JOSIEL /LEVINSON/
-# Assumes name has already been normalized with normalizeName
-def formatName(gn, pn, sn, gender):
-
-    if not gn:
-        return ""
-    prefix = "bat" if gender == "F" else "ben"
-    p = " {} {}".format(prefix, pn) if pn else ""
-    return "{}{} /{}/".format(gn, p, sn)
 
 
 def extractSurname(gnRaw, snRaw):
