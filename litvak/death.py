@@ -16,7 +16,7 @@ from .utils import warning
 
 def processDeath(d):
     # A death record references the following people:
-    #   principle (the deceased)
+    #   principal (the deceased)
     #   Father
     #   paternal grandfather
     #   Mother
@@ -31,7 +31,7 @@ def processDeath(d):
     fatherGiven = d["father's given name"]
 
     # a few Death spreadsheets put a full name in the father gn field when
-    # principle surname is a married name
+    # principal surname is a married name
     if spouseGiven and deceasedSurname:
         if not spouseSurname:
             spouseSurname = deceasedSurname
@@ -78,7 +78,7 @@ def processDeath(d):
         deceased.deathYear, d["age"]
     )
 
-    deceased.role = "Principle"
+    deceased.role = "Principal"
 
     fatherAge, motherAge = getParentsAge(d)
     witnesses = getWitnesses(d)
@@ -112,7 +112,7 @@ def processDeath(d):
     spouse.birthDate, spouse.birthYear, spouse.birthNote = calcBirthFromAge(
         deceased.deathYear, spouseAge, genBirthYear=deceased.birthYear, generation=0
     )
-    if "widow" in d["comments"].lower():
+    if "widow" in str(d["comments"]).lower():
         spouse.deathDate = "before {}".format(d["y"])
         spouse.deathNote = "Spouse died a widow in {}.".format(d["y"])
     spouse.role = "Spouse"

@@ -18,9 +18,9 @@ def processSpouseFam(d, side="Husband", dprefix=""):
         d[dprefix + "given name"],
         d[dprefix + "surname"],
         d[dprefix + "father's given name"],
-        d[dprefix + "father's patronymic"],
+        d.get(dprefix + "father's patronymic", ""),
         d[dprefix + "mother's given name"],
-        d[dprefix + "mother's patronymic"],
+        d.get(dprefix + "mother's patronymic", ""),
         d[dprefix + "mother's maiden name"],
     )
 
@@ -29,7 +29,7 @@ def processSpouseFam(d, side="Husband", dprefix=""):
     spouse.role = side
     spouse.birthPlace = d[dprefix + "place"]
 
-    spouse.marriageDate = formatJulianAsGregorian(d["y"], d["m"], d["y"])
+    spouse.marriageDate = formatJulianAsGregorian(d["y"], d["m"], d["d"])
     spouse.marriageYear = d["y"]
     spouse.marriagePlace = formatPlace(d["town"], d["uyezd"], d["gubernia"])
 

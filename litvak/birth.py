@@ -24,7 +24,7 @@ _twinsRe = re.compile(
 
 def processBirth(d):
     # A birth record references the following people:
-    #   principle (the child)
+    #   principal (the child)
     #   Father
     #   paternal grandfather
     #   Mother
@@ -50,10 +50,10 @@ def processBirth(d):
     )
 
     # Set roles
-    child.birthDate = formatJulianAsGregorian(d["y"], d["m"], d["y"])
+    child.birthDate = formatJulianAsGregorian(d["y"], d["m"], d["d"])
     child.birthNote = ""
     child.birthPlace = formatPlace(d["town"], d["uyezd"], d["gubernia"])
-    child.role = "Principle"
+    child.role = "Principal"
 
     fatherAge, motherAge = getParentsAge(d)
     father.birthDate, father.birthYear, father.birthNote = calcBirthFromAge(

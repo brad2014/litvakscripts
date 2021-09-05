@@ -107,6 +107,15 @@ class Person:
             "Role": self.role,
         }
 
+    #
+    # for debugging
+    #
+    def dump(self):
+        from inspect import getmembers
+        from pprint import pprint
+
+        pprint(getmembers(self))
+
 
 # build the names of a common family group: child, two parents, with patronyms.
 def buildFamily(
@@ -128,13 +137,13 @@ def buildFamily(
     spousesFather = Person(spousePatronymic, spouseSurname, None, "M")
     mother = Person(motherGiven, motherMaidenName, mothersFather, "F")
     father = Person(fatherGiven, surname, fathersFather, "M")
-    principle = Person(givenName, surname, father, gender)
+    principal = Person(givenName, surname, father, gender)
     spouse = Person(
         spouseGiven, spouseSurname, spousesFather, gender=oppositeGender(gender)
     )
 
     return (
-        principle,
+        principal,
         father,
         fathersFather,
         mother,

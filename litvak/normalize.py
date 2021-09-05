@@ -26,6 +26,7 @@ fieldInfo = (
     ("Marriage Date", "The date of marriage. Gregorian calendar."),
     ("Marriage Place", "The town, district, province of the marriage."),
     ("Source", "As indicated on the spreadsheet, typically archive/fond/list/item"),
+    ("Microfilm", "As indicated on the spreadsheet"),
     ("Recorded On", "Year recorded, in source spreadsheet."),
     ("Recorded At", "Place recorded, in source spreadsheet."),
     ("Record Number", "Record number in source spreadsheet."),
@@ -267,18 +268,19 @@ def calcBirthFromAge(
     return None, None, None
 
 
-def commonFields(d, principleName):
+def commonFields(d, principalName):
     return {
         "File": d["fileName"],
         "Row": d["rowNum"],
         "Source": d["source: archive / fond / list / item"],
+        "Microfilm": d["microfilm #"],
         "Recorded On": d["year recorded"],
         "Recorded At": d["place recorded"],
         "Record Number": d["record #"],
         "Source Date": "/".join([str(d["d"]), str(d["m"]), str(d["y"])]),
         "Source Place": ",".join([d["town"], d["uyezd"], d["gubernia"]]),
         "Source Description": "{} of {} in {} {}".format(
-            d["fileType"], principleName, d["y"], d["town"]
+            d["fileType"], principalName, d["y"], d["town"]
         ).strip(),
     }
 
@@ -296,7 +298,7 @@ def getParentsAge(d):
 
 def getSpouseAge(d):
     spouseAge = d.get("spouse's age", None)
-    match = _spouseAgeInCommentsRe.search(d["comments"])
+    match = _spouseAgeInCommentsRe.search(str(d["comments"]))
     if match:
         spouseAge = match.group(1)
     return spouseAge
