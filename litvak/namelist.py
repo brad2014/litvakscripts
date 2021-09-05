@@ -12,7 +12,11 @@ nameList = [
             "Orko",
         ),
     ),
-    ("ABEL", "M", ("Abelis",)),
+    (
+        "ABEL",
+        "M",
+        ("Abelis",),
+    ),
     (
         "ABRAHAM",
         "M",
@@ -65,6 +69,9 @@ nameList = [
             "Akiva",
             "Akivas",
             "Akive",
+            "Kiwa",
+            "Kiva",
+            "Kivel",
         ),
     ),
     (
@@ -90,8 +97,16 @@ nameList = [
             "Ałta",
         ),
     ),
-    ("AMELIE", "F", ("Amalija",)),
-    ("ANNA", "F", ("Ana",)),
+    (
+        "AMELIE",
+        "F",
+        ("Amalija",),
+    ),
+    (
+        "ANNA",
+        "F",
+        ("Ana",),
+    ),
     (
         "ANSHEL",
         "M",
@@ -132,6 +147,7 @@ nameList = [
             "Arje",
             "Arjo",
             "Arjow",
+            "Ary",
             "Arya",
             "Arye",
             "Aryi",
@@ -145,6 +161,7 @@ nameList = [
             "Iszer",
             "Osher",
             "Oszer",
+            "Acher",
         ),
     ),
     (
@@ -160,7 +177,15 @@ nameList = [
     (
         "BADANA",
         "F",
-        ("Badane", "Badanka", "Badany", "Badena", " Bedanka", "Bedana", "Bedane"),
+        (
+            "Badane",
+            "Badanka",
+            "Badany",
+            "Badena",
+            " Bedanka",
+            "Bedana",
+            "Bedane",
+        ),
     ),
     (
         "BEDANKE",
@@ -283,9 +308,15 @@ nameList = [
             "Tsivie",
             "Tsyvia",
             "Tsivie",
+            "Tzyva",
+            "Zawki",
         ),
     ),
-    ("BEDENKA", "F", ("Bedenka",)),
+    (
+        "BEDENKA",
+        "F",
+        ("Bedenka",),
+    ),
     (
         "BEILE",
         "F",
@@ -351,7 +382,11 @@ nameList = [
             "Binyaminas",
         ),
     ),
-    ("BENZION", "M", ("Bencjon",)),
+    (
+        "BENZION",
+        "M",
+        ("Bencjon",),
+    ),
     (
         "BER",
         "M",
@@ -381,7 +416,11 @@ nameList = [
             "Blyuma",
         ),
     ),
-    ("BRIDA", "F", ("Breida",)),
+    (
+        "BRIDA",
+        "F",
+        ("Breida",),
+    ),
     (
         "BRINA",
         "F",
@@ -626,7 +665,14 @@ nameList = [
             "Khave",
         ),
     ),
-    ("CHLAVNA", "M", ("Chlawno",)),
+    (
+        "CHLAVNA",
+        "M",
+        (
+            "Chlawno",
+            "Chlowna",
+        ),
+    ),
     (
         "CYRA",
         "F",
@@ -647,6 +693,8 @@ nameList = [
             "Tsirlia",
             "Tsyrlia",
             "Tzirke",
+            "Tsyrlya",
+            "Tzyrka",
         ),
     ),
     (
@@ -659,7 +707,7 @@ nameList = [
         ),
     ),
     (
-        "DANIEL",
+        "TANKHUM",
         "M",
         (
             "Tamchel",
@@ -835,7 +883,11 @@ nameList = [
             "Dysza",
         ),
     ),
-    ("DORA", "F", ("Dore",)),
+    (
+        "DORA",
+        "F",
+        ("Dore",),
+    ),
     (
         "DROZNA",
         "F",
@@ -863,7 +915,11 @@ nameList = [
             "Drusza",
         ),
     ),
-    ("EDITH", "F", ("Ejdla",)),
+    (
+        "EDITH",
+        "F",
+        ("Ejdla",),
+    ),
     (
         "ELI",
         "M",
@@ -945,6 +1001,7 @@ nameList = [
             "Khonko",
             "Khono",
             "Khonon",
+            "Chonko",
         ),
     ),
     (
@@ -959,7 +1016,11 @@ nameList = [
             "Elki",
         ),
     ),
-    ("LENA", "F", ("Lina",)),
+    (
+        "LENA",
+        "F",
+        ("Lina",),
+    ),
     (
         "ELOKIM",
         "M",
@@ -969,12 +1030,31 @@ nameList = [
             "Eliokim",
         ),
     ),
-    ("EMMA", "F", ("Ema",)),
-    ("ENOCH", "M", ("Enokh",)),
+    (
+        "EMMA",
+        "F",
+        ("Ema",),
+    ),
+    (
+        "ENOCH",
+        "M",
+        ("Enokh",),
+    ),
     (
         "EPHRAIM",
         "M",
-        ("Afraim", "Afraym", "Afroim", "Afroimas", "Afrojimas", "Efroim", "Efroimas"),
+        (
+            "Afraim",
+            "Afraym",
+            "Afroim",
+            "Afroimas",
+            "Afrojimas",
+            "Efroim",
+            "Efroimas",
+            "Frejm",
+            "Froim",
+            "Frojm",
+        ),
     ),
     (
         "ESTHER",
@@ -1041,7 +1121,11 @@ nameList = [
             "Itty",
         ),
     ),
-    ("EVA", "F", ("Ewa",)),
+    (
+        "EVA",
+        "F",
+        ("Ewa",),
+    ),
     (
         "EYGE",
         "F",
@@ -1052,13 +1136,30 @@ nameList = [
             "Eygie",
         ),
     ),
-    ("EZRA", "M", ()),
+    (
+        "EZRA",
+        "M",
+        ("Auzer",),
+    ),
     (
         "FANNY",
         "F",
-        ("Faina", "Fana", "Fane", "Fani", "Fania", "Fanja", "Fanya", "Fauny"),
+        (
+            "Faina",
+            "Fana",
+            "Fane",
+            "Fani",
+            "Fania",
+            "Fanja",
+            "Fanya",
+            "Fauny",
+        ),
     ),
-    ("FALK", "M", ("Falko",)),
+    (
+        "FALK",
+        "M",
+        ("Falko",),
+    ),
     (
         "FEIGA",
         "F",
@@ -1105,6 +1206,9 @@ nameList = [
             "Faywisz",
             "Fejwel",
             "Heywusz",
+            "Faybisz",
+            "Faybis",
+            "Fajwus",
         ),
     ),
     (
@@ -1181,10 +1285,27 @@ nameList = [
     (
         "FRUMA",
         "F",
-        ("Froma", "Frome", "Fromka", "Fromma", "Frume", "Frumka", "Frumma", "Frumy"),
+        (
+            "Froma",
+            "Frome",
+            "Fromka",
+            "Fromma",
+            "Frume",
+            "Frumka",
+            "Frumma",
+            "Frumy",
+        ),
     ),
-    ("GABRIEL", "M", ("Gabryel",)),
-    ("GAD", "M", ("Codyk",)),
+    (
+        "GABRIEL",
+        "M",
+        ("Gabryel",),
+    ),
+    (
+        "GAD",
+        "M",
+        ("Codyk",),
+    ),
     (
         "GEDALIAH",
         "M",
@@ -1229,6 +1350,8 @@ nameList = [
             "Gile",
             "Gilka",
             "Heli",
+            "Gielka",
+            "Gieyla",
         ),
     ),
     (
@@ -1284,16 +1407,35 @@ nameList = [
             "Gershon",
             "Gerszon",
             "Gier",
+            "Gierson",
             "Gierszon",
             "Gierzon",
+            "Gireszon",
+            "Girla",
+            "Girs",
             "Girsa",
             "Girsas",
+            "Girsch",
             "Girsh",
             "Girsha",
+            "Girsha",
+            "Girshas",
+            "Girsus",
             "Girsz",
+            "Girsza",
+            "Girszel",
+            "Girszon",
+            "Girszun",
+            "Giershon",
+            "Gierszun",
+            "Gierz",
         ),
     ),
-    ("GIMPEL", "M", ("Gimpel",)),
+    (
+        "GIMPEL",
+        "M",
+        ("Gimpel",),
+    ),
     (
         "GITEL",
         "F",
@@ -1359,7 +1501,11 @@ nameList = [
             "Gołda",
         ),
     ),
-    ("GOTLIEB", "M", ("Gotlib",)),
+    (
+        "GOTLIEB",
+        "M",
+        ("Gotlib",),
+    ),
     (
         "HADASA",
         "F",
@@ -1491,6 +1637,7 @@ nameList = [
             "Chazkiel",
             "Checka",
             "Checkiel",
+            "Haykiel",
             "Jecheskiel",
             "Khackel",
             "Khackiel",
@@ -1548,7 +1695,7 @@ nameList = [
             "Cheyska",
             "Esha",
             "Esza",
-            "Girsha" "Hersha",
+            "Hersha",
             "Hersza",
             "Herza",
             "Hesa",
@@ -1565,10 +1712,19 @@ nameList = [
             "Hirszka",
             "Hiszka",
             "Hitka",
+            "Irsza",
         ),
     ),
-    ("HILDA", "F", ("Hilta",)),
-    ("HILLEL", "M", ("Hilel",)),
+    (
+        "HILDA",
+        "F",
+        ("Hilta",),
+    ),
+    (
+        "HILLEL",
+        "M",
+        ("Hilel",),
+    ),
     (
         "HINDE",
         "F",
@@ -1621,6 +1777,9 @@ nameList = [
             "Ajzyk",
             "Ayzik",
             "Ayzyk",
+            "Eizik",
+            "Eizikas",
+            "Eizyk",
             "Ejzjk",
             "Ejzyk",
             "Eysyk",
@@ -1641,7 +1800,12 @@ nameList = [
             "Itska",
             "Itskhak",
             "Itsko",
-            "Izaak" "Izack",
+            "Itsyk",
+            "Itzik",
+            "Itzka",
+            "Itzko",
+            "Izaak",
+            "Izack",
             "Jzaak",
         ),
     ),
@@ -1712,6 +1876,7 @@ nameList = [
             "Jeruchim",
             "Jeruchomas",
             "Ierukhim",
+            "Yerukhim",
         ),
     ),
     ("JOCHELA", "F", ()),
@@ -1859,7 +2024,11 @@ nameList = [
             "Yudyta",
         ),
     ),
-    ("KALEV", "M", ("Kolof",)),
+    (
+        "KALEV",
+        "M",
+        ("Kolof",),
+    ),
     (
         "KALMAN",
         "M",
@@ -1906,7 +2075,11 @@ nameList = [
             "Kreyny",
         ),
     ),
-    ("KASRIEL", "M", ("Kazryel",)),
+    (
+        "KASRIEL",
+        "M",
+        ("Kazryel",),
+    ),
     (
         "KODESH",
         "M",
@@ -1916,8 +2089,16 @@ nameList = [
             "Kodysz",
         ),
     ),
-    ("KOPEL", "M", ("Kopel",)),
-    ("KUNA", "F", ("Kune",)),
+    (
+        "KOPEL",
+        "M",
+        ("Kopel",),
+    ),
+    (
+        "KUNA",
+        "F",
+        ("Kune",),
+    ),
     (
         "GRACE",
         "F",
@@ -1945,6 +2126,7 @@ nameList = [
             "Leika",
             "Leike",
             "Leiya",
+            "Lej",
             "Leja",
             "Leje",
             "Lejka",
@@ -2029,7 +2211,11 @@ nameList = [
             "Lewko",
         ),
     ),
-    ("MACHLA", "F", ("Michla",)),
+    (
+        "MACHLA",
+        "F",
+        ("Michla",),
+    ),
     (
         "MALKA",
         "F",
@@ -2291,6 +2477,14 @@ nameList = [
         ),
     ),
     (
+        "MONES",
+        "M",
+        (
+            "Mones",
+            "Monesas",
+        ),
+    ),
+    (
         "MORDECHAI",
         "M",
         (
@@ -2317,6 +2511,7 @@ nameList = [
             "Mordchelis",
             "Mordchelis",
             "Mordchiel",
+            "Mordchiell",
             "Mordchus",
             "Mordechaj",
             "Mordeche",
@@ -2640,7 +2835,11 @@ nameList = [
             "Nysel",
         ),
     ),
-    ("PALTIEL", "M", ("Paltyn",)),
+    (
+        "PALTIEL",
+        "M",
+        ("Paltyn",),
+    ),
     (
         "PEARL",
         "F",
@@ -2686,8 +2885,19 @@ nameList = [
             "Peysakh",
         ),
     ),
-    ("PINCHAS", "M", ("Pinchus",)),
-    ("PLIMA", "M", ()),
+    (
+        "PINCHAS",
+        "M",
+        (
+            "Pinchus",
+            "Pinkhus",
+        ),
+    ),
+    (
+        "PLIMA",
+        "M",
+        ("Plima",),
+    ),
     (
         "RACHEL",
         "F",
@@ -2827,7 +3037,16 @@ nameList = [
     (
         "RAYNA",
         "F",
-        ("Raina", "Raine", "Rajna", "Rajny", "Reina", "Rejna", "Renia", "Reyna"),
+        (
+            "Raina",
+            "Raine",
+            "Rajna",
+            "Rajny",
+            "Reina",
+            "Rejna",
+            "Renia",
+            "Reyna",
+        ),
     ),
     (
         "REBECCA",
@@ -2872,7 +3091,11 @@ nameList = [
             "Ryyfka",
         ),
     ),
-    ("RELA", "F", ("Rella",)),
+    (
+        "RELA",
+        "F",
+        ("Rella",),
+    ),
     (
         "REUBEN",
         "M",
@@ -2893,7 +3116,11 @@ nameList = [
             "Ryfko",
         ),
     ),
-    ("RHODA", "F", ("Roda",)),
+    (
+        "RHODA",
+        "F",
+        ("Roda",),
+    ),
     (
         "ROSE",
         "F",
@@ -3157,6 +3384,11 @@ nameList = [
         ),
     ),
     (
+        "NESANEYL",
+        "M",
+        ("Sanel",),
+    ),
+    (
         "SARAH",
         "F",
         (
@@ -3200,8 +3432,9 @@ nameList = [
             "Saulas",
             "Saulis",
             "Saulius",
-            "Zawel",
             "Szulka",
+            "Tsalko",
+            "Zawel",
         ),
     ),
     (
@@ -3211,6 +3444,7 @@ nameList = [
             "Shakhno",
             "Szachna",
             "Szachno",
+            "Shakhna",
         ),
     ),
     (
@@ -3419,6 +3653,7 @@ nameList = [
             "Solemas",
             "Solomas",
             "Szlema",
+            "Szlioma",
             "Szlom",
             "Szloma",
             "Szlomy",
@@ -3438,7 +3673,16 @@ nameList = [
     (
         "SULAMIT",
         "F",
-        ("Sula", "Sulamis", "Sulamita", "Sulamite", "Sule", "Sulia", "Sulka", "Sulki"),
+        (
+            "Sula",
+            "Sulamis",
+            "Sulamita",
+            "Sulamite",
+            "Sule",
+            "Sulia",
+            "Sulka",
+            "Sulki",
+        ),
     ),
     (
         "SHOSHANA",
@@ -3533,16 +3777,32 @@ nameList = [
             "Toube",
             "Touby",
             "Tuaba",
+            "Tauba",
         ),
     ),
-    ("THOMAS", "M", ("Tomka",)),
-    ("TOVAH", "F", ("Tywa",)),
+    (
+        "THOMAS",
+        "M",
+        (
+            "Tomka",
+            "Tankhel",
+        ),
+    ),
+    (
+        "TOVAH",
+        "F",
+        (
+            "Tywa",
+            "Towia",
+        ),
+    ),
     (
         "TILA",
         "F",
         (
             "Tyla",
             "Tylko",
+            "Tylka",
         ),
     ),
     (
@@ -3571,7 +3831,32 @@ nameList = [
             "Tobjan",
         ),
     ),
-    ("TODROS", "M", ("Todrys",)),
+    (
+        "TODROS",
+        "M",
+        (
+            "Todor",
+            "Todres",
+            "Todris",
+            "Todry",
+            "Todrys",
+            "Todrysz",
+            "Todryz",
+        ),
+    ),
+    (
+        "TRINA",
+        "F",
+        (
+            "Traina",
+            "Traina",
+            "Traine",
+            "Trajna",
+            "Trejna",
+            "Treyna",
+            "Taraina",
+        ),
+    ),
     (
         "TSINA",
         "F",
@@ -3590,6 +3875,9 @@ nameList = [
             "Cywa",
             "Cywja",
             "Cywy",
+            "Tsivia",
+            "Tsiviya",
+            "Tsyva",
         ),
     ),
     (
@@ -3626,7 +3914,15 @@ nameList = [
             "Uzyl",
         ),
     ),
-    ("VITA", "F", ("Wita",)),
+    (
+        "VITA",
+        "F",
+        (
+            "Faitel",
+            "Fajtel",
+            "Wita",
+        ),
+    ),
     (
         "VICTOR",
         "M",
@@ -3661,7 +3957,28 @@ nameList = [
             "Wulf",
         ),
     ),
-    ("YECHUSIEL", "M", ("Kuszel", "Kushel")),
+    (
+        "YECHIEL",
+        "M",
+        (
+            "Achiel",
+            "Echiel",
+            "Ichiel",
+            "Jachiel",
+            "Jechielis",
+            "Jekiel",
+            "Jochiel",
+            "Ochiel",
+        ),
+    ),
+    (
+        "YECHUSIEL",
+        "M",
+        (
+            "Kuszel",
+            "Kushel",
+        ),
+    ),
     (
         "YENTA",
         "F",
@@ -3847,6 +4164,7 @@ nameList = [
             "Tsypka",
             "Zipe",
             "Zypa",
+            "Tzypa",
         ),
     ),
     (
@@ -3889,9 +4207,20 @@ nameList = [
             "Złata",
         ),
     ),
-    ("ZORACH", "M", ("Zoruch",)),
+    (
+        "ZORACH",
+        "M",
+        (
+            "Zoruch",
+            "Zorukh",
+        ),
+    ),
     ("ZUNDEL", "M", ()),
-    ("ALTMAN", "S", ("Eltman",)),
+    (
+        "ALTMAN",
+        "S",
+        ("Eltman",),
+    ),
     (
         "ANDURSKI",
         "S",
@@ -3908,7 +4237,11 @@ nameList = [
             "Byalostotzki",
         ),
     ),
-    ("BLOCH", "S", ("Blokh",)),
+    (
+        "BLOCH",
+        "S",
+        ("Blokh",),
+    ),
     (
         "BLUMBERG",
         "S",
@@ -3917,7 +4250,11 @@ nameList = [
             "Blyumberg",
         ),
     ),
-    ("BLOCH", "S", ("Blokh",)),
+    (
+        "BLOCH",
+        "S",
+        ("Blokh",),
+    ),
     (
         "GIBIANSKA",
         "S",
@@ -3936,18 +4273,42 @@ nameList = [
             "Lichtsztejn",
         ),
     ),
-    ("LIPOV", "S", ("Lipow",)),
-    ("MARKOWSKI", "S", ("Markowska",)),
+    (
+        "LIPOV",
+        "S",
+        ("Lipow",),
+    ),
+    (
+        "MARKOWSKI",
+        "S",
+        ("Markowska",),
+    ),
     (
         "OBERSCHMIDT",
         "S",
-        ("Hoberszmidt", "Oberszmidt", "Oberszmydt", "Oberszmyt", "Oberszmyt"),
+        (
+            "Hoberszmidt",
+            "Oberszmidt",
+            "Oberszmydt",
+            "Oberszmyt",
+            "Oberszmyt",
+        ),
     ),
-    ("PRENSKI", "S", ("Prenska",)),
+    (
+        "PRENSKI",
+        "S",
+        ("Prenska",),
+    ),
     (
         "RABINOWICH",
         "S",
-        ("Rabinovich", "Rabinowicz", "Rabinowicz", "Rubinovich", "Rubinowicz"),
+        (
+            "Rabinovich",
+            "Rabinowicz",
+            "Rabinowicz",
+            "Rubinovich",
+            "Rubinowicz",
+        ),
     ),
     (
         "RADZIUSZKANSKI",
@@ -3965,7 +4326,11 @@ nameList = [
             "Szymanski",
         ),
     ),
-    ("SOLNICKI", "S", ("Solnicka",)),
+    (
+        "SOLNICKI",
+        "S",
+        ("Solnicka",),
+    ),
     (
         "SPERLING",
         "S",
@@ -3974,7 +4339,11 @@ nameList = [
             "Szperling",
         ),
     ),
-    ("ZAMECKI", "S", ("ZAMECKA",)),
+    (
+        "ZAMECKI",
+        "S",
+        ("ZAMECKA",),
+    ),
     (
         "ZUBRINSKA",
         "S",
