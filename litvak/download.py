@@ -2,12 +2,13 @@
 
 import os
 import re
+
 from bs4 import BeautifulSoup
+
 from .utils import get, info
 
 _xlsRe = re.compile(
-    r"/addons/photodownload[.]cfm[?]filename=([^&]+)&location=(\d+)&var=(\d+)"
-)
+    r"/addons/photodownload[.]cfm[?]filename=([^&]+)&location=(\d+)&var=(\d+)")
 
 
 def getFileList(group):
@@ -20,7 +21,11 @@ def getFileList(group):
         if not match:
             continue
         basename, location, var = match.groups()
-        fileList[basename] = {"filename": basename, "location": location, "var": var}
+        fileList[basename] = {
+            "filename": basename,
+            "location": location,
+            "var": var
+        }
     info("Found {} files".format(len(fileList)))
     return fileList
 

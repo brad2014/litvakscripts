@@ -1,6 +1,8 @@
 import os
-from .utils import info, warning, setWarningContext
+
 from xlrd import open_workbook
+
+from .utils import info, setWarningContext, warning
 
 # from pprint import pprint
 
@@ -84,7 +86,6 @@ _keyMap = {
     "wife's mother's given name|patronymic": "wife's mother's patronymic",
     # "other towns|": "comments",
 }
-
 
 fileTypeMap = {
     "child's surname": "Birth",

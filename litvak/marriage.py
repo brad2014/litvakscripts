@@ -9,7 +9,8 @@ from .person import buildFamily
 
 def processSpouseFam(d, side="Husband", dprefix=""):
 
-    (spouse, father, fathersFather, mother, mothersFather, skip, skip) = buildFamily(
+    (spouse, father, fathersFather, mother, mothersFather, skip,
+     skip) = buildFamily(
          d[dprefix + "given name"],
          d[dprefix + "surname"],
          d[dprefix + "father's given name"],
