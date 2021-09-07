@@ -1,15 +1,14 @@
 #!/usr/bin/env python3
 
+import argparse
+import csv
 
-from litvak.normalize import fieldInfo
-from litvak.parsexls import xlsRows
 from litvak.birth import processBirth
 from litvak.death import processDeath
 from litvak.marriage import processMarriage
-from litvak.utils import info, fatal
-import csv
-import argparse
-
+from litvak.normalize import fieldInfo
+from litvak.parsexls import xlsRows
+from litvak.utils import fatal, info
 
 parser = argparse.ArgumentParser(
     formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -20,15 +19,11 @@ OUTPUT FIELDS
 
 The output CSV file contains the following fields:
 
-"""
-    + "\n".join(
-        [
-            "{:2d} {:20s} {:s}".format(i + 1, field[0], field[1])
-            for i, field in enumerate(fieldInfo)
-        ]
-    ),
+""" + "\n".join([
+        "{:2d} {:20s} {:s}".format(i + 1, field[0], field[1])
+        for i, field in enumerate(fieldInfo)
+    ]),
 )
-
 
 parser.add_argument(
     "-o",
@@ -42,11 +37,12 @@ parser.add_argument(
     "-f",
     "--fields",
     dest="fields",
-    help="Comma separated list of fields to emit. [Default: all]",
+    help="Comma separated list of fields to emit. "
+    "[Default: all]",
 )
-parser.add_argument(
-    "--places", action="store_true", help="Only emit the normalized 'Places' columns."
-)
+parser.add_argument("--places",
+                    action="store_true",
+                    help="Only emit the normalized 'Places' columns.")
 
 parser.add_argument(
     "files",
@@ -67,7 +63,9 @@ if not fieldnames:
     fatal("No valid field names given.")
 
 with open(options.output, "w", newline="") as f:
-    writer = csv.DictWriter(f, fieldnames=fieldnames, extrasaction=extrasaction)
+    writer = csv.DictWriter(f,
+                            fieldnames=fieldnames,
+                            extrasaction=extrasaction)
     writer.writeheader()
     for fileName in options.files:
         for row in xlsRows(fileName):

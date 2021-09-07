@@ -9,7 +9,8 @@ from xlrd import open_workbook
 # by litvaksig. It basically attempts to normalize them into a single template.
 #
 
-# different ways column names appear in the spreadsheets, and a normalized version
+# different ways column names appear in the spreadsheets,
+# and a normalized version
 _keyMap = {
     "w1": "witness 1",
     "w2": "witness 2",

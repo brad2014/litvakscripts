@@ -64,19 +64,15 @@ def processDeath(d):
     )
 
     if deceased.gender and deceased.gender == spouse.gender:
-        warning(
-            "Deceased and spouse have same {} gender: {} and {}".format(
-                deceased.gender, deceasedGiven, spouseGiven
-            )
-        )
+        warning("Deceased and spouse have same {} gender: {} and {}".format(
+            deceased.gender, deceasedGiven, spouseGiven))
 
     deceased.deathDate = formatJulianAsGregorian(d["y"], d["m"], d["d"])
     deceased.deathYear = d["y"]
     deceased.deathNote = ""
     deceased.deathPlace = formatPlace(d["town"], d["uyezd"], d["gubernia"])
-    deceased.birthDate, deceased.birthYear, deceased.birthNote = calcBirthFromAge(
-        deceased.deathYear, d["age"]
-    )
+    deceased.birthDate, deceased.birthYear, deceased.birthNote = (
+        calcBirthFromAge(deceased.deathYear, d["age"]))
 
     deceased.role = "Principal"
 
@@ -84,13 +80,11 @@ def processDeath(d):
     witnesses = getWitnesses(d)
 
     father.birthDate, father.birthYear, father.birthNote = calcBirthFromAge(
-        deceased.deathYear, fatherAge, genBirthYear=deceased.birthYear
-    )
+        deceased.deathYear, fatherAge, genBirthYear=deceased.birthYear)
     father.role = "Father"
 
     mother.birthDate, mother.birthYear, mother.birthNote = calcBirthFromAge(
-        deceased.deathYear, motherAge, genBirthYear=deceased.birthYear
-    )
+        deceased.deathYear, motherAge, genBirthYear=deceased.birthYear)
     mother.role = "Mother"
 
     (
@@ -110,8 +104,10 @@ def processDeath(d):
     spouseAge = getSpouseAge(d)
     # if age is not given, estimate spouse as roughly same generation
     spouse.birthDate, spouse.birthYear, spouse.birthNote = calcBirthFromAge(
-        deceased.deathYear, spouseAge, genBirthYear=deceased.birthYear, generation=0
-    )
+        deceased.deathYear,
+        spouseAge,
+        genBirthYear=deceased.birthYear,
+        generation=0)
     if "widow" in str(d["comments"]).lower():
         spouse.deathDate = "before {}".format(d["y"])
         spouse.deathNote = "Spouse died a widow in {}.".format(d["y"])
@@ -125,17 +121,16 @@ def processDeath(d):
     spouseFather.role = "Spouse's Father"
 
     rowCommon = commonFields(d, deceased.formatName(False))
-    return [
-        {**rowCommon, **p.normalizedFields()}
-        for p in (
-            deceased,
-            father,
-            fathersFather,
-            mother,
-            mothersFather,
-            spouse,
-            spouseFather,
-            *witnesses,
-        )
-        if p
-    ]
+    return [{
+        **rowCommon,
+        **p.normalizedFields()
+    } for p in (
+        deceased,
+        father,
+        fathersFather,
+        mother,
+        mothersFather,
+        spouse,
+        spouseFather,
+        *witnesses,
+    ) if p]

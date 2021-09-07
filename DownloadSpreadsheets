@@ -6,14 +6,14 @@
 # Requires a donation that provides a subscription
 #
 import argparse
-import pathlib
 import os
-from litvak.utils import info, fatal, login
-from litvak.download import getFileList, downloadXlsFile
+import pathlib
+
+from litvak.download import downloadXlsFile, getFileList
+from litvak.utils import fatal, info, login
 
 parser = argparse.ArgumentParser(
-    description="Download a set of spreadsheets from Litvaksig.org"
-)
+    description="Download a set of spreadsheets from Litvaksig.org")
 parser.add_argument(
     "-u",
     "--username",
@@ -39,31 +39,37 @@ parser.add_argument(
     dest="outdir",
     type=pathlib.Path,
     default="./output",
-    help="The directory where the spreadsheets will be placed. [Default: ./output]",
+    help="The directory where the spreadsheets will be placed. "
+    "[Default: ./output]",
 )
 parser.add_argument(
     "-x",
     "--overwrite",
     dest="overwrite",
     action="store_true",
-    help="Overwrite existing files. [Default: false]",
+    help="Overwrite existing files. "
+    "[Default: false]",
 )
 parser.add_argument(
     "-n",
     "--dry-run",
     action="store_true",
     dest="dryrun",
-    help="Identify the files, but do not download them. [Default: false]",
+    help="Identify the files, but do not download them. "
+    "[Default: false]",
 )
 parser.add_argument(
     "files",
     nargs="*",
-    help="Files to download. If not specified, download all files in the group.",
+    help="Files to download. "
+    "[Default: all files in the group]",
 )
 options = parser.parse_args()
 
-options.username = options.username or os.getenv("LITVAK_USERNAME", default=None)
-options.password = options.password or os.getenv("LITVAK_PASSWORD", default=None)
+options.username = options.username or os.getenv("LITVAK_USERNAME",
+                                                 default=None)
+options.password = options.password or os.getenv("LITVAK_PASSWORD",
+                                                 default=None)
 if not options.username or not options.password:
     fatal("Account username and password are required.")
 

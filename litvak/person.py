@@ -1,4 +1,5 @@
 from enum import Enum
+
 from .names import normalizeName, oppositeGender
 from .utils import warning
 
@@ -44,32 +45,24 @@ class Person:
         if not isinstance(father, Person):
             return
         if self.normalizedPatronym:
-            if (
-                father.normalizedGiven
-                and father.normalizedGiven.lower() != self.normalizedPatronym.lower()
-            ):
-                warning(
-                    "{} has patronym {} != father's given name {}.".format(
-                        self.formatName(False),
-                        self.normalizedPatronym,
-                        father.normalizedGiven,
-                    )
-                )
+            if (father.normalizedGiven and father.normalizedGiven.lower() !=
+                    self.normalizedPatronym.lower()):
+                warning("{} has patronym {} != father's given name {}.".format(
+                    self.formatName(False),
+                    self.normalizedPatronym,
+                    father.normalizedGiven,
+                ))
             elif not father.normalizedGiven:
                 father.normalizedGiven = self.normalizedPatronym
                 father.normalizedPatronym = ""
         if self.normalizedSurname:
-            if (
-                father.normalizedSurname
-                and father.normalizedSurname.lower() != self.normalizedSurname.lower()
-            ):
-                warning(
-                    "{} has surname {} != father's surname {}.".format(
-                        self.formatName(False),
-                        self.normalizedSurname,
-                        father.normalizedSurname,
-                    )
-                )
+            if (father.normalizedSurname and father.normalizedSurname.lower()
+                    != self.normalizedSurname.lower()):
+                warning("{} has surname {} != father's surname {}.".format(
+                    self.formatName(False),
+                    self.normalizedSurname,
+                    father.normalizedSurname,
+                ))
             else:
                 father.normalizedSurname = self.normalizedSurname
 
@@ -85,9 +78,8 @@ class Person:
                 p = " {} {}".format(prefix, self.normalizedPatronym)
             else:
                 p = ""
-            return "{}{} /{}/".format(
-                self.normalizedGiven, p, self.normalizedSurname
-            ).strip()
+            return "{}{} /{}/".format(self.normalizedGiven, p,
+                                      self.normalizedSurname).strip()
         return "{} {}".format(self.sourceGiven, self.sourceSurname).strip()
 
     def normalizedFields(self):
@@ -138,9 +130,10 @@ def buildFamily(
     mother = Person(motherGiven, motherMaidenName, mothersFather, "F")
     father = Person(fatherGiven, surname, fathersFather, "M")
     principal = Person(givenName, surname, father, gender)
-    spouse = Person(
-        spouseGiven, spouseSurname, spousesFather, gender=oppositeGender(gender)
-    )
+    spouse = Person(spouseGiven,
+                    spouseSurname,
+                    spousesFather,
+                    gender=oppositeGender(gender))
 
     return (
         principal,

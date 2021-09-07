@@ -9,11 +9,8 @@ BASE_URL = "https://donors.litvaksig.org/"
 
 def _check_response(response, **kwargs):
     if response.status_code >= 400:
-        raise ValueError(
-            "HTTP returned bad status code {} for {}".format(
-                response.status_code, response.url
-            )
-        )
+        raise ValueError("HTTP returned bad status code {} for {}".format(
+            response.status_code, response.url))
 
 
 def url(path="", baseUrl=BASE_URL):
@@ -36,7 +33,8 @@ def info(msg):
 
 def warning(msg):
     global _curFileName, _curRow
-    print("{}:{} WARNING: {}".format(_curFileName, _curRow, msg), file=sys.stderr)
+    print("{}:{} WARNING: {}".format(_curFileName, _curRow, msg),
+          file=sys.stderr)
 
 
 def fatal(msg):
@@ -52,8 +50,10 @@ def login(username, password):
 
     _session = requests.session()
     headers = {
-        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1)"
-        " AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36"
+        "User-Agent":
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1)"
+        " AppleWebKit/537.36 (KHTML, like Gecko)"
+        " Chrome/39.0.2171.95 Safari/537.36"
     }
     _session.headers.update(headers)
     _session.hooks["response"] = _check_response

@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 from .utils import get, info
 
 _xlsRe = re.compile(
-    "/addons/photodownload[.]cfm[?]filename=([^&]+)&location=(\d+)&var=(\d+)"
+    r"/addons/photodownload[.]cfm[?]filename=([^&]+)&location=(\d+)&var=(\d+)"
 )
 
 

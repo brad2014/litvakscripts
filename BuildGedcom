@@ -1,0 +1,97 @@
+#!/usr/bin/env python3
+
+import csv
+import re
+
+fileName = "output/rubenstein.csv"
+
+indi = []
+sour = []
+sourceNum = {}
+
+_nameRe = re.compile(
+    r"""
+        (\w[\w\s]*?\w)       # gn
+        \s+
+        (?:
+            (?:ben|bat)\s+
+            (\w[\w\s]*\w)   # pn (optional)
+            \s+
+        )?
+        /(\w+)/             # sn
+    """,
+    flags=re.I + re.X,
+)
+
+
+def extractName(name):
+    match = _nameRe.search(name)
+    gn, pn, sn = match.groups()
+    gn = gn.title()
+    pn = pn.title()
+    sn = sn.title()
+    return match.groups()  # gn, pn, sn
+
+
+with open(fileName, newline="") as f:
+    reader = csv.DictReader(f)
+    for row in reader:
+        if (row["Source Description"].startswith("Birth ")
+                and row["Role"] == "Principal"):
+            if row["Source"] not in sourceNum:
+                sourceNum[row["Source"]] = sNum = len(sourceNum)
+                sour.append("""0 @S{}@ SOUR
+1 TITL {}
+1 AUTH LitvakSig.org
+1 PUBL Microfilm: {}
+1 REPO @R0@""".format(sNum, row["Source"], row["Microfilm"]))
+            sNum = sourceNum[row["Source"]]
+            iNum = len(indi)
+            gn, pn, sn = extractName(row["Name"])
+
+            indi.append("""0 @I{}@ INDI
+1 NAME {} /{}/
+2 GIVN {}
+2 SURN {}
+1 SEX {}
+1 BIRT
+2 DATE {}
+2 PLAC {}
+3 FORM Town,County,Province
+2 SOUR @S{}@
+3 PAGE {}
+3 DATA
+4 TEXT {} #{}
+5 CONT {}:{}""".format(
+                iNum,
+                gn,
+                sn,
+                gn,
+                sn,
+                row["Gender"],
+                row["Birth Date"],
+                row["Birth Place"],
+                sNum,
+                row["Source Description"],
+                row["Source"],
+                row["Record Number"],
+                row["File"],
+                row["Row"],
+            ))
+
+print("""0 HEAD
+1 SUBM @SUBM1@
+1 GEDC
+2 VERS 5.5.1
+2 FORM LINEAGE-LINKED
+1 CHAR UTF-8
+0 @SUBM1@ SUBM
+1 NAME Brad Rubenstein""")
+
+for row in indi:
+    print(row)
+for row in sour:
+    print(row)
+print("""0 @R0@ REPO
+1 NAME LitvakSig.org
+0 TRLR""")

@@ -5,3 +5,4 @@ output
 .virtualenv
 .tags
 .~*
+.ropeproject

@@ -1,4 +1,4 @@
-# noqa: E501
+# noqa: E501 [too-many-lines]
 nameList = [
     (
         "AARON",
@@ -398,6 +398,7 @@ nameList = [
             "Berk",
             "Berki",
             "Berko",
+            "Berl",
         ),
     ),
     ("BERTA", "F", ()),

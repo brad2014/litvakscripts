@@ -9,9 +9,9 @@
 # https://www.jewishgen.org/databases/GivenNames/search.htm
 #
 import re
-from .namelist import nameList
-from .utils import warning, info, fatal
 
+from .namelist import nameList
+from .utils import fatal, info, warning
 
 # map raw name (titlecase) to normalized name (uppercase):
 nameMap = {"M": {}, "F": {}, "S": {}, "P": {}}
@@ -92,89 +92,86 @@ def clean(nameRaw):
     return nameRaw.strip()
 
 
-def normalizeName(gn, pn="", sn="", gender=None, dump=False):
-    def mapRawName(nameRaw, gender=None):
-        global nameMap
-        # assume patronymics have been removed, and we're left with a string of
-        # names "Chaia Leah". You can tell a name is mapped if it is in
-        # UPPERCASE.  Unmappable names are in Title Case.
-        subNames = clean(nameRaw).title().split()
-        if gender:
-            return (
-                " ".join([nameMap[gender].get(name, name) for name in subNames]),
-                gender,
-            )
-
-        # maybe one of the subnames tells us the gender of the whole name
-        genSet = set()
-        for name in subNames:
-            isM = name in nameMap["M"]
-            isF = name in nameMap["F"]
-            if isM and not isF:
-                genSet.add("M")
-            elif isF and not isM:
-                genSet.add("F")
-        if genSet == {"M"}:
-            gender = "M"
-        elif genSet == {"F"}:
-            gender = "F"
-        elif genSet == {"M", "F"}:
-            warning(
-                "name '{}' has a mix of male-only and female-only names".format(nameRaw)
-            )
-            gender = "M"  # later, fix the name list
-        else:
-            return nameRaw, None  # nameList has nothing, or gender is ambiguous
-
+def mapRawName(nameRaw, gender=None):
+    global nameMap
+    # assume patronymics have been removed, and we're left with a string of
+    # names "Chaia Leah". You can tell a name is mapped if it is in
+    # UPPERCASE.  Unmappable names are in Title Case.
+    subNames = clean(nameRaw).title().split()
+    if gender:
         return (
             " ".join([nameMap[gender].get(name, name) for name in subNames]),
             gender,
         )
 
-    #
-    # The gn and pn may be returned unchanged, or, if the raw string contains a
-    # embedded patronym, the patronym will be moved to pn (overwriting what was there).
-    #
-    def extractPatronym(gnRaw, pnRaw, gender):
-        gn, pn = str(gnRaw), str(pnRaw)
-        match = _patronymRe.search(gn)
-        gmark = None
-        if match:
-            gn, gmark, pn1, pn2, pn3 = match.groups()
-            pn = pn1 or pn2 or pn3
-        if pnRaw and pn.upper() != str(pnRaw).upper():
-            warning(
-                "Name {} has two patronyms: {} overwrites {}".format(gnRaw, pn, pnRaw)
-            )
-        if gmark:
-            # update gender based on patronym gender mark: son of, dau of
-            gmarkNormalized = gmark[0:3].lower()
-            if gmarkNormalized in ("son", "bar", "ben"):
-                if not gender or gender == "M":
-                    gender = "M"
-                elif gender:
-                    warning(
-                        "Name {} has patronym gender: {}, expected {}".format(
-                            gnRaw, gmark, gender
-                        )
-                    )
-            elif gmarkNormalized in ("dau", "bat"):
-                if not gender or gender == "F":
-                    gender = "F"
-                elif gender:
-                    warning(
-                        "Name {} has patronym gender: {}, expected {}".format(
-                            gnRaw, gmark, gender
-                        )
-                    )
+    # maybe one of the subnames tells us the gender of the whole name
+    genSet = set()
+    for name in subNames:
+        isM = name in nameMap["M"]
+        isF = name in nameMap["F"]
+        if isM and not isF:
+            genSet.add("M")
+        elif isF and not isM:
+            genSet.add("F")
+    if genSet == {"M"}:
+        gender = "M"
+    elif genSet == {"F"}:
+        gender = "F"
+    elif genSet == {"M", "F"}:
+        warning(
+            "name '{}' has a mix of male-only and female-only names".format(
+                nameRaw))
+        gender = "M"  # later, fix the name list
+    else:
+        # nameList has nothing, or gender is ambiguous
+        return nameRaw, None
 
-        return gn, pn, gender
+    return (
+        " ".join([nameMap[gender].get(name, name) for name in subNames]),
+        gender,
+    )
 
+
+#
+# The gn and pn may be returned unchanged, or, if the raw string
+# contains an embedded patronym, the patronym will be moved to pn
+# (overwriting what was there).
+#
+def extractPatronym(gnRaw, pnRaw, gender):
+    gn, pn = str(gnRaw), str(pnRaw)
+    match = _patronymRe.search(gn)
+    gmark = None
+    if match:
+        gn, gmark, pn1, pn2, pn3 = match.groups()
+        pn = pn1 or pn2 or pn3
+    if pnRaw and pn.upper() != str(pnRaw).upper():
+        warning("Name {} has two patronyms: {} overwrites {}".format(
+            gnRaw, pn, pnRaw))
+    if gmark:
+        # update gender based on patronym gender mark: son of, dau of
+        gmarkNormalized = gmark[0:3].lower()
+        if gmarkNormalized in ("son", "bar", "ben"):
+            if not gender or gender == "M":
+                gender = "M"
+            elif gender:
+                warning("Name {} has patronym gender: {}, expected {}".format(
+                    gnRaw, gmark, gender))
+        elif gmarkNormalized in ("dau", "bat"):
+            if not gender or gender == "F":
+                gender = "F"
+            elif gender:
+                warning("Name {} has patronym gender: {}, expected {}".format(
+                    gnRaw, gmark, gender))
+
+    return gn, pn, gender
+
+
+def normalizeName(gn, pn="", sn="", gender=None, dump=False):
     gn, sn = extractSurname(gn, sn)
-    # gender is explicit in given name via embedded patronym:  e.g. Hanna, dau. of Aisik
+    # gender is explicit in given name via embedded patronym:
+    # e.g. Hanna, dau. of Aisik
     gn, pn, gender = extractPatronym(gn, pn, gender)
     gn, gender = mapRawName(gn, gender)
-
     # Sometimes a father name ends up in the surname field.
     # Of course, a surname could be the same as a male name, but, oh well.
     if not pn and sn in nameMap["M"]:
@@ -185,10 +182,8 @@ def normalizeName(gn, pn="", sn="", gender=None, dump=False):
     # We can discard it, since buildFamily will find a home for it.
     # extractPatronym(gn, pn, gender)
     pn, skip, skip = extractPatronym(pn, "", "M")  # not used: ppn
-
     pn, skip = mapRawName(pn, "M")
     sn, skip = mapRawName(sn, "S")
-
     if dump:  # for debugging
         for n in gn.split():
             info("NAME:{}:{}".format(gender, n))
@@ -196,7 +191,6 @@ def normalizeName(gn, pn="", sn="", gender=None, dump=False):
             info("NAME:{}:{}".format("M", n))
         for n in sn.split():
             info("NAME:{}:{}".format("S", n))
-
     return (gn, pn, sn, gender)
 
 
@@ -262,7 +256,8 @@ def nameScore(n1, n2):
         if n1set == n2set:
             return 1  # exact match
         if n1set < n2set or n2set > n1set:
-            return 0.75  # one name is subset of the other ('chasha' ⊂ "chasha leah")
+            # one name is subset of the other ('chasha' ⊂ "chasha leah")
+            return 0.75
         return 0  # ('chasha leah' ≠ 'chasha rebecca')
 
     # Quick Check: names match exactly?
@@ -272,11 +267,8 @@ def nameScore(n1, n2):
         gn1, pn1, sn1 = parseName(n1)
         # print("Name1: {} ~ {} ~ {}".format(gn1, pn1, sn1))
         gn2, pn2, sn2 = parseName(n2)
-        score = (
-            multiNameScore(sn1, sn2)
-            * multiNameScore(pn1, pn2)
-            * multiNameScore(gn1, gn2)
-        )
+        score = (multiNameScore(sn1, sn2) * multiNameScore(pn1, pn2) *
+                 multiNameScore(gn1, gn2))
     # if score > 0:
     #     print("SCORE: '{}' ? '{}' = {:.2f}".format(n1, n2, score))
     return score

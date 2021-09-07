@@ -1,6 +1,7 @@
 import re
+
 from .person import Person
-from .utils import warning, info
+from .utils import info, warning
 
 # output field, and description
 fieldInfo = (
@@ -8,9 +9,11 @@ fieldInfo = (
     ("Row", "The spreadsheet row number on which this record appears."),
     ("Source Description", "A brief description that identifies the record."),
     ("Name", "The normalized name of an individual mentioned in a record."),
-    ("Gender", "Male, Female, or Unknown. An educated guess based on role and name."),
+    ("Gender", "Male, Female, or Unknown. An educated"
+     " guess based on role and name."),
     ("Role", "The role of the individual with respect to this record."),
-    ("Birth Date", "The date of birth. Gregorian calendar. May be approximate."),
+    ("Birth Date",
+     "The date of birth. Gregorian calendar. May be approximate."),
     (
         "Birth Note",
         "If approximate, how it was derived (e.g. from age, "
@@ -20,12 +23,14 @@ fieldInfo = (
     ("Death Date", "The date of death. Gregorian calendar."),
     (
         "Death Note",
-        "If approximate, how it was derived (e.g. from age, or relation to spouse)",
+        "If approximate, how it was derived"
+        " (e.g. from age, or relation to spouse)",
     ),
     ("Death Place", "The town, district, province of the death."),
     ("Marriage Date", "The date of marriage. Gregorian calendar."),
     ("Marriage Place", "The town, district, province of the marriage."),
-    ("Source", "As indicated on the spreadsheet, typically archive/fond/list/item"),
+    ("Source",
+     "As indicated on the spreadsheet, typically archive/fond/list/item"),
     ("Microfilm", "As indicated on the spreadsheet"),
     ("Recorded On", "Year recorded, in source spreadsheet."),
     ("Recorded At", "Place recorded, in source spreadsheet."),
@@ -113,8 +118,10 @@ def formatJulianAsGregorian(Y, M, D):
 
     # Convert to Julian Day, then convert that to Gregorian Y-M-D
     # Utterly inscrutable code from the wikipedia page.  Seems legit.
-    # Ref: https://en.wikipedia.org/wiki/Julian_day#Julian_day_number_calculation
-    J = 367 * Y - (7 * (Y + 5001 + (M - 9) // 7)) // 4 + (275 * M) // 9 + D + 1729777
+    # Ref: https://en.wikipedia.org/wiki/Julian_day
+    #            #Julian_day_number_calculation
+    J = 367 * Y - (7 * (Y + 5001 +
+                        (M - 9) // 7)) // 4 + (275 * M) // 9 + D + 1729777
     y = 4716
     j = 1401
     m = 2
@@ -179,67 +186,74 @@ MINYEAR = 1000
 # For example, the father of the bride might be age 50:
 # birth is 50 before marriage date.
 # Or his age might not be given:
-# in which case he is one generation (say 25 years) before the bride's birth year.
+# in which case he is one generation (say 25 years) before the bride's
+# birth year.
 
 
-def calcBirthFromAge(
-    yearRaw, ageRaw=None, generation=1, genBirthYear=None, genYears=25
-):
-    def clean(v):
-        v = str(v)
-        # remove parenthesized values
-        v = re.sub(r"\(.*\)", "", str(v))
-        # remove non-word characters and multiple spaces
-        return re.sub(r"[^\w\s]+", " ", v)
+def clean(v):
+    v = str(v)
+    # remove parenthesized values
+    v = re.sub(r"\(.*\)", "", str(v))
+    # remove non-word characters and multiple spaces
+    return re.sub(r"[^\w\s]+", " ", v)
 
-    def extractNum(v):
-        if isinstance(v, int):
-            return v
-        v = clean(v)
-        v = re.sub(r"[^\d].*", "", v)  # pick out first number
-        if v == "":
-            return -1  # marker: no value
-        return int(v)
 
-    def dateInAgeField(ageRaw):
-        match = _ageAsDateRe.search(clean(ageRaw))
-        if not match:
-            return None
-        return (
-            formatJulianAsGregorian(
-                match.group(4), match.group(2), match.group(3) or match.group(1)
-            ),
-            int(match.group(4)),
-            "Given: {} (Julian)".format(ageRaw),
-        )
+def extractNum(v):
+    if isinstance(v, int):
+        return v
+    v = clean(v)
+    v = re.sub(r"[^\d].*", "", v)  # pick out first number
+    if v == "":
+        return -1  # marker: no value
+    return int(v)
 
-    def dateBasedOnAgeAndYear(ageRaw, yearRaw):
-        # try to interpret the age field as a number with optional units (3 months)
-        age = clean(ageRaw)
-        match = _ageRe.match(age)
-        if not match:
-            return None
-        num, unit = match.groups()
-        if unit and unit != "ye" or not num:
-            # All sub-years round to zero.
-            # Calculated birthdates should be read as +/- 1 year.
-            num = 0
-        num = int(num)
-        if not 0 <= num < 120:  # ignore crazy ages
-            warning("Impossible age: {}".format(ageRaw))
-        if not yearRaw:
-            info("Age but no base year: {}, {}".format(ageRaw, yearRaw))
-        year = extractNum(yearRaw)
-        if year == -1:
-            info("Age but no base year: {}, {}".format(ageRaw, yearRaw))
-        elif year < MINYEAR:
-            warning("Impossible year: {} ({})".format(yearRaw, year))
-        return (
-            "{}".format(year - num),
-            year - num,
-            "Calculated: age {} in {}".format(ageRaw, yearRaw),
-        )
 
+def dateInAgeField(ageRaw):
+    match = _ageAsDateRe.search(clean(ageRaw))
+    if not match:
+        return None
+    return (
+        formatJulianAsGregorian(match.group(4), match.group(2),
+                                match.group(3) or match.group(1)),
+        int(match.group(4)),
+        "Given: {} (Julian)".format(ageRaw),
+    )
+
+
+def dateBasedOnAgeAndYear(ageRaw, yearRaw):
+    # try to interpret the age field as a number with optional
+    # units (e.g. "3 months")
+    age = clean(ageRaw)
+    match = _ageRe.match(age)
+    if not match:
+        return None
+    num, unit = match.groups()
+    if unit and unit != "ye" or not num:
+        # All sub-years round to zero.
+        # Calculated birthdates should be read as +/- 1 year.
+        num = 0
+    num = int(num)
+    if not 0 <= num < 120:  # ignore crazy ages
+        warning("Impossible age: {}".format(ageRaw))
+    if not yearRaw:
+        info("Age but no base year: {}, {}".format(ageRaw, yearRaw))
+    year = extractNum(yearRaw)
+    if year == -1:
+        info("Age but no base year: {}, {}".format(ageRaw, yearRaw))
+    elif year < MINYEAR:
+        warning("Impossible year: {} ({})".format(yearRaw, year))
+    return (
+        "{}".format(year - num),
+        year - num,
+        "Calculated: age {} in {}".format(ageRaw, yearRaw),
+    )
+
+
+def calcBirthFromAge(yearRaw,
+                     ageRaw=None,
+                     generation=1,
+                     genBirthYear=None,
+                     genYears=25):
     def estimateBirthFromGeneration(genBirthYear, generation, genYears):
         year = extractNum(genBirthYear)
         if year < MINYEAR:
@@ -261,26 +275,42 @@ def calcBirthFromAge(
     genBirthYear = genBirthYear or yearRaw
     if genBirthYear:
         yearRaw
-        result = estimateBirthFromGeneration(genBirthYear, generation, genYears)
+        result = estimateBirthFromGeneration(genBirthYear, generation,
+                                             genYears)
         if result:
             return result
-        warning("Unable to process birth year for estimate: {}".format(genBirthYear))
+        warning("Unable to process birth year for estimate: {}".format(
+            genBirthYear))
     return None, None, None
 
 
 def commonFields(d, principalName):
     return {
-        "File": d["fileName"],
-        "Row": d["rowNum"],
-        "Source": d["source: archive / fond / list / item"],
-        "Microfilm": d["microfilm #"],
-        "Recorded On": d["year recorded"],
-        "Recorded At": d["place recorded"],
-        "Record Number": d["record #"],
-        "Source Date": "/".join([str(d["d"]), str(d["m"]), str(d["y"])]),
-        "Source Place": ",".join([d["town"], d["uyezd"], d["gubernia"]]),
-        "Source Description": "{} of {} in {} {}".format(
-            d["fileType"], principalName, d["y"], d["town"]
+        "File":
+        d["fileName"],
+        "Row":
+        d["rowNum"],
+        "Source":
+        d["source: archive / fond / list / item"],
+        "Microfilm":
+        d["microfilm #"],
+        "Recorded On":
+        d["year recorded"],
+        "Recorded At":
+        d["place recorded"],
+        "Record Number":
+        d["record #"],
+        "Source Date":
+        "/".join([str(d["d"]), str(d["m"]),
+                  str(d["y"])]),
+        "Source Place":
+        ",".join([d["town"], d["uyezd"], d["gubernia"]]),
+        "Source Description":
+        "{} of {} in {} {}".format(
+            (d.get("marriage or divorce", None) or d["fileType"]).title(),
+            principalName,
+            d["y"],
+            d["town"],
         ).strip(),
     }
 
